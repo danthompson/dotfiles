@@ -1,0 +1,10 @@
+.DS_Store
+*.swp
+*.swo
+.rvmrc
+.bundle
+*.sqlite3-journal
+.powrc
+.powenv
+.env
+.rspec
