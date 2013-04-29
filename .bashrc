@@ -70,7 +70,8 @@ fi
 
   # Function to assemble the Git part of our prompt.
   git_prompt() {
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    if [ ! $(git rev-parse --git-dir) > /dev/null 2>&1 ] -o
+       [ $(git rev-parse --show-toplevel) == $HOME ]; then
       return 0
     fi
 
