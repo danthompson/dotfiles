@@ -177,106 +177,45 @@ function! RunRuby()
   exec ":!ruby " . expand("%")
 endfunction
 
-function! RunTestFile()
-  let in_spec_file    = match(expand("%"), '_spec.rb$') != -1
-  let in_test_file    = match(expand("%"), '_test.rb$') != -1
-  let in_feature_file = match(expand("%"), '.feature$') != -1
+" run this test file
+map <leader>t :call RunTestFile()<cr>
 
-  if in_spec_file
-    call SetTestFile()
-  elseif in_test_file
-    call SetTestFile()
-  elseif in_feature_file
-    call SetTestFile()
-  elseif !exists("g:grb_test_file")
-    return
-  end
+" run only the example under the cursor
+map <leader>T :call RunNearestTest()<cr>
 
-  call ChooseTestRunner(g:grb_test_file)
-endfunction
+" run all test files
+map <leader>a :call RunTests('spec')<cr>
 
-function! SetTestFile()
-  " Set the spec file that tests will be run for.
-  let g:grb_test_file=@%
-endfunction
-
-function! ChooseTestRunner(filename)
-  write
-  silent !echo;echo;echo;echo;echo
-
-  let run_specs   = match(a:filename, '_spec.rb$') != -1
-  let run_tests   = match(a:filename, '_test.rb$') != -1
-  let run_feature = match(a:filename, '.feature$') != -1
-
-  if run_specs
-    call RunSpecs(a:filename)
-  elseif run_tests
-    call RunTests(a:filename)
-  elseif run_feature
-    call RunFeature(a:filename)
-  endif
-endfunction
-
-" \:<C-R>=line(".")
-function! RunSpecs(filename)
-  silent exec ":!echo rspec " . a:filename
-  " exec ":!ruby -Ilib -Ispec " . a:filename
+" spec running helpers
+function! RunTests(filename)
+  " Write the file and run tests for the given filename
+  :w
+  :silent !echo;echo;echo;echo;echo
   exec ":!time bundle exec rspec " . a:filename
 endfunction
-
-function! RunTests(filename)
-  silent exec ":!echo ruby -Itest -Ilib " . a:filename
-  exec ":!time bundle exec ruby -Itest -Ilib " . a:filename
+function! SetTestFile()
+  " Set the spec file that tests will be run for.
+  let t:grb_test_file=@%
 endfunction
-
-function! RunFeature(filename)
-  silent exec ":!echo bundle exec cucumber -r features " . a:filename
-  " exec ":!ruby -Ilib -Ispec " . a:filename
-  exec ":!time bundle exec cucumber -r features " . a:filename
+function! RunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+  " Run the tests for the previously-marked file.
+  let in_spec_file = match(expand("%"), '_spec.rb$') != -1
+  if in_spec_file
+    call SetTestFile()
+  elseif !exists("t:grb_test_file")
+    return
+  end
+  call RunTests(t:grb_test_file . command_suffix)
 endfunction
-
-nmap <leader>. :call RunTestFile()<CR>
-
-
-" " run this test file
-" map <leader>t :call RunTestFile()<cr>
-
-" " run only the example under the cursor
-" map <leader>T :call RunNearestTest()<cr>
-
-" " run all test files 
-" map <leader>a :call RunTests('spec')<cr>
-
-" " spec running helpers
-" function! RunTests(filename)
-"   " Write the file and run tests for the given filename
-"   :w
-"   :silent !echo;echo;echo;echo;echo
-"   exec ":!bundle exec rspec " . a:filename
-" endfunction
-" function! SetTestFile()
-"   " Set the spec file that tests will be run for.
-"   let t:grb_test_file=@%
-" endfunction
-" function! RunTestFile(...)
-"   if a:0
-"     let command_suffix = a:1
-"   else
-"     let command_suffix = ""
-"   endif
-"   " Run the tests for the previously-marked file.
-"   let in_spec_file = match(expand("%"), '_spec.rb$') != -1
-"   if in_spec_file
-"     call SetTestFile()
-"   elseif !exists("t:grb_test_file")
-"     return
-"   end
-"   call RunTests(t:grb_test_file . command_suffix)
-" endfunction
-" function! RunNearestTest()
-"   let spec_line_number = line('.')
-"   call RunTestFile(":" . spec_line_number)
-" endfunction
+function! RunNearestTest()
+  let spec_line_number = line('.')
+  call RunTestFile(":" . spec_line_number)
+endfunction
 
 " promote declaration to let
 command! PromoteToLet :call PromoteToLet()
