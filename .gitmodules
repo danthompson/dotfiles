@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/base16-vim"]
 	path = .vim/bundle/base16-vim
 	url = git://github.com/chriskempson/base16-vim.git
+[submodule ".vim/bundle/hemisu"]
+	path = .vim/bundle/hemisu
+	url = git://github.com/noahfrederick/Hemisu.git
