@@ -57,6 +57,7 @@
   d = diff
   dc = diff --cached
   l = log --graph --abbrev-commit --date=relative --decorate --all
+  y = "!f() { git log --pretty='[%ai] %h: %s <%an>' --author=$(git config user.email); }; f"
   re = rebase
   st = stash
   sub = submodule
