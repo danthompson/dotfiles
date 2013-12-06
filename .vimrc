@@ -81,6 +81,10 @@ let mapleader=","
 " use Q instead of Ex mode
 map Q gq
 
+" less escaping for regex searches
+nnoremap / /\v
+vnoremap / /\v
+
 " clear search highlight
 nnoremap <CR> :nohlsearch<cr>
 
@@ -98,6 +102,9 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>w :set invwrap wrap?<CR>
 
 " switch between last two buffers
 nnoremap <leader><leader> <c-^>
@@ -140,7 +147,7 @@ augroup Vim
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
- 
+
   " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 
@@ -156,7 +163,7 @@ function! SizeWindow()
     exec "vertical resize 78"
   end
 endfunction
-   
+
 " tab autocompletion or indentation depending on context
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
