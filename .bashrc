@@ -14,6 +14,9 @@ export GREP_OPTIONS
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# Source auto completions
+source /usr/local/etc/bash_completion.d/git-completion.bash
+
 alias e='vim'
 
 # ls with colors
