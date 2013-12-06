@@ -7,6 +7,8 @@ export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Ho
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+alias e='vim'
+
 # ls with colors
 alias ls='ls -G'
 
