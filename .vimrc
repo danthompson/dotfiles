@@ -170,6 +170,11 @@ augroup Vim
 
 augroup END
 
+" spell check for filetypes
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us syntax=markdown
+autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=en_us
+autocmd FileType gitcommit setlocal spell spelllang=en_us
+
 augroup SizeWindow
   autocmd!
   autocmd WinEnter * call SizeWindow()
