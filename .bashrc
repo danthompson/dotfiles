@@ -2,6 +2,7 @@ export EDITOR='mvim -v'
 
 # Path additions
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
+export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

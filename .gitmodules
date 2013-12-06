@@ -25,3 +25,12 @@
 [submodule ".vim/bundle/hemisu"]
 	path = .vim/bundle/hemisu
 	url = git://github.com/noahfrederick/Hemisu.git
+[submodule ".vim/bundle/VimClojure"]
+	path = .vim/bundle/VimClojure
+	url = git://github.com/vim-scripts/VimClojure.git
+[submodule ".vim/bundle/vim-fireplace"]
+	path = .vim/bundle/vim-fireplace
+	url = git://github.com/tpope/vim-fireplace.git
+[submodule ".vim/bundle/vim-classpath"]
+	path = .vim/bundle/vim-classpath
+	url = git://github.com/tpope/vim-classpath.git
