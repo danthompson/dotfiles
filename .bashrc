@@ -4,6 +4,13 @@ export EDITOR='mvim -v'
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
 export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
 
+# Grep default options
+GREP_OPTIONS=
+for pattern in .cvs .git .hg .svn .bundle log; do
+    GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=$pattern --color"
+done
+export GREP_OPTIONS
+
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
