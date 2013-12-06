@@ -50,6 +50,10 @@ set smarttab                    " backspacing deletes space-expanded tabs
 set nojoinspaces                " do not use spaces when doing a line join
 set backspace=indent,eol,start  " allow backspacing over everything
 
+set list                        " display unprintable characters
+set listchars=tab:\|\ ,trail:·,extends:>,precedes:<,nbsp:·
+
+
 syntax on
 colorscheme base16-default      " ...
 set background=dark             " ...
@@ -129,6 +133,19 @@ inoremap $t <><esc>i
 " command-t as f
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 let g:CommandTMaxHeight=20
+
+" highlights
+highlight CursorLineNr ctermbg=11 ctermfg=13
+highlight NonText ctermbg=00 ctermfg=10
+highlight SpecialKey ctermbg=00 ctermfg=10
+highlight ExtraWhitespace ctermbg=01 ctermfg=00
+
+" match extra white space and highlight
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 augroup Vim
   autocmd!
