@@ -199,52 +199,15 @@ function! InsertTabWrapper()
     endif
 endfunction
 
-function! RunRuby()
-  " Write the file and run tests for the given filename
-  w
-  silent !echo;echo;echo;echo;echo
-  exec ":!ruby " . expand("%")
-endfunction
+" configure vroom
+let g:vroom_map_keys = 0
+let g:vroom_use_colors = 1
+let g:vroom_clear_screen = 0
+let g:vroom_write_all = 1
+let g:vroom_test_unit_command = 'm'
 
-" run this test file
-map <leader>t :call RunTestFile()<cr>
-
-" run only the example under the cursor
-map <leader>T :call RunNearestTest()<cr>
-
-" run all test files
-map <leader>a :call RunTests('spec')<cr>
-
-" spec running helpers
-function! RunTests(filename)
-  " Write the file and run tests for the given filename
-  :w
-  :silent !echo;echo;echo;echo;echo
-  exec ":!time bundle exec rspec " . a:filename
-endfunction
-function! SetTestFile()
-  " Set the spec file that tests will be run for.
-  let t:grb_test_file=@%
-endfunction
-function! RunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
-  endif
-  " Run the tests for the previously-marked file.
-  let in_spec_file = match(expand("%"), '_spec.rb$') != -1
-  if in_spec_file
-    call SetTestFile()
-  elseif !exists("t:grb_test_file")
-    return
-  end
-  call RunTests(t:grb_test_file . command_suffix)
-endfunction
-function! RunNearestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number)
-endfunction
+map <leader>t :call vroom#RunTestFile()<cr>
+map <leader>T :call vroom#RunNearestTest()<cr>
 
 " promote declaration to let
 command! PromoteToLet :call PromoteToLet()
