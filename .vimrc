@@ -168,6 +168,10 @@ augroup Vim
   " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 
+  autocmd FileType ruby setlocal foldmethod=syntax
+  autocmd FileType java setlocal foldmethod=syntax
+  autocmd FileType xml setlocal foldmethod=syntax
+
 augroup END
 
 " spell check for filetypes
@@ -254,3 +258,13 @@ function! RenameFile()
         redraw!
     endif
 endfunction
+
+set foldlevelstart=0
+let xml_syntax_folding=1
+
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
+
+" Make zO recursively open whatever fold we're in, even if it's partially open.
+nnoremap zO zczO
