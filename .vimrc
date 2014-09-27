@@ -30,7 +30,7 @@ set ruler                       " show cursor position
 set number                      " line numbers
 set numberwidth=5               " line numbers column width
 set laststatus=2                " always show status line
-set cmdheight=2                 " command line height
+set cmdheight=1                 " command line height
 set showcmd                     " display incomplete commands
 set wildmode=longest,list       " tab completion similar to shell
 set splitbelow                  " open splits below

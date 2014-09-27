@@ -1,8 +1,9 @@
 export EDITOR='mvim -v'
 
 # Path additions
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
 export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 # Grep default options
 GREP_OPTIONS=
@@ -60,6 +61,9 @@ alias mcd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.memcached.pl
 # Redis
 alias rdu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.redis.plist'
 alias rdd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist'
+
+alias mdu='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist'
+alias mdd='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist'
 
 # Nginx
 alias ngu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'

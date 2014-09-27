@@ -8,3 +8,4 @@
 .powenv
 .env
 .rspec
+Procfile.dev
