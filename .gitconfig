@@ -49,7 +49,8 @@
 [alias]
   a = add
   b = branch
-  c = commit
+  c = commit -v
+  p = push
   cm = commit -m
   cl = clone
   co = checkout
@@ -57,16 +58,26 @@
   d = diff
   dc = diff --cached
   l = log --graph --abbrev-commit --date=relative --decorate --all
-  y = "!f() { git log --pretty='[%ai] %h: %s <%an>' --author=$(git config user.email); }; f"
+  y = log --pretty=format:\"%C(green)%ad%Creset %C(yellow)%h%Creset - %s%C(red)%d%Creset\" --date=short --all --decorate --author=dwthompson@gmail.com
   re = rebase
   st = stash
   sub = submodule
   s = status
+  bp = !git branch --merged master | grep -v master | xargs git branch -d && git remote prune origin
 
 [format]
-  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
+  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset
 [heroku]
 	account = personal
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true

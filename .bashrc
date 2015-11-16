@@ -7,7 +7,7 @@ export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 # Grep default options
 GREP_OPTIONS=
-for pattern in .cvs .git .hg .svn .bundle log; do
+for pattern in .cvs .git .hg .svn .bundle log node_modules bower_components dist tmp; do
     GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=$pattern --color"
 done
 export GREP_OPTIONS
@@ -17,6 +17,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Source auto completions
 source /usr/local/etc/bash_completion.d/git-completion.bash
+source /usr/local/etc/bash_completion.d/git-prompt.sh
 
 alias e='vim'
 
@@ -25,6 +26,10 @@ alias ls='ls -G'
 
 # Git
 alias g='git'
+
+alias ta='tmux attach -t '
+alias tn='tmux new -s '
+alias tl='tmux ls'
 
 # Gems
 alias r='rails'
@@ -69,39 +74,29 @@ alias mdd='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist'
 alias ngu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
 alias ngd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
 
-# Configure colors, if available.
-if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  c_reset='\[\e[0m\]'
-  # c_user='\[\033[1;33m\]'
-  c_user=
-  c_path='\[\e[0;33m\]'
-  c_git_clean='\[\e[0;36m\]'
-  c_git_dirty='\[\e[0;35m\]'
-else
-  c_reset=
-  c_user=
-  c_path=
-  c_git_clean=
-  c_git_dirty=
-fi
+MAGENTA="\[\033[0;35m\]"
+YELLOW="\[\033[0;33m\]"
+BLUE="\[\033[34m\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+CYAN="\[\033[0;36m\]"
+GREEN="\[\033[0;32m\]"
+RED="\[\033[0;31m\]"
+LIGHT_RED="\[\033[1;31m\]"
+RESET="\[\e[0m\]"
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+export LS_OPTIONS='--color=auto'
+export CLICOLOR='Yes'
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
-  # Function to assemble the Git part of our prompt.
-  git_prompt() {
-    if [ ! $(git rev-parse --git-dir) > /dev/null 2>&1 ] -o
-       [ $(git rev-parse --show-toplevel) == $HOME ]; then
-      return 0
-    fi
-
-    git_branch=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
-
-    if git diff --quiet 2>/dev/null >&2; then
-      git_color="$c_git_clean"
-    else
-      git_color="$c_git_dirty"
-    fi
-
-    echo " [$git_color$git_branch${c_reset}]"
-  }
-
-# The prompt.
-PROMPT_COMMAND='PS1="${c_user}\u${c_reset}@${c_user}\h${c_reset}:${c_path}\w${c_reset}$(git_prompt)\$ "'
+export PS1=$LIGHT_GRAY"\u@\h"'$(
+  if [[ $(__git_ps1) =~ \*\)$ ]]
+  # a file has been modified but not added
+  then echo "'$MAGENTA'"$(__git_ps1 " (%s)")
+  elif [[ $(__git_ps1) =~ \+\)$ ]]
+  # a file has been added, but not commited
+  then echo "'$RED'"$(__git_ps1 " (%s)")
+  # the state is clean, changes are commited
+  else echo "'$CYAN'"$(__git_ps1 " (%s)")
+  fi)'$YELLOW" \w"$RESET" $ "

@@ -40,3 +40,6 @@
 [submodule ".vim/bundle/vim-vroom"]
 	path = .vim/bundle/vim-vroom
 	url = git://github.com/skalnik/vim-vroom.git
+[submodule "/Users/dan/.vim/bundle/vim-dispatch"]
+	path = /Users/dan/.vim/bundle/vim-dispatch
+	url = git@github.com:tpope/vim-dispatch.git

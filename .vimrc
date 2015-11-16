@@ -33,6 +33,8 @@ set laststatus=2                " always show status line
 set cmdheight=1                 " command line height
 set showcmd                     " display incomplete commands
 set wildmode=longest,list       " tab completion similar to shell
+set wildignore+=**/dist,**/bower_components,**/node_modules,tmp
+
 set splitbelow                  " open splits below
 set splitright                  " and vsplits to the right
 
@@ -55,8 +57,29 @@ set listchars=tab:\|\ ,trail:·,extends:>,precedes:<,nbsp:·
 
 
 syntax on
-colorscheme base16-default      " ...
-set background=dark             " ...
+colorscheme default
+set background=dark
+" colorscheme base16-default      " ...
+" set background=dark             " ...
+
+" colorscheme vividchalk
+" set background=dark
+
+" " highlights
+" highlight CursorLineNr ctermbg=11 ctermfg=03
+highlight NonText ctermbg=00 ctermfg=10
+highlight SpecialKey ctermbg=00 ctermfg=10
+highlight ExtraWhitespace ctermbg=01 ctermfg=00
+
+highlight ColorColumn  ctermbg=234 ctermfg=NONE
+" highlight CursorLine ctermbg=10 ctermfg=NONE
+
+" match extra white space and highlight
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 " status layout
 set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
@@ -92,8 +115,8 @@ vnoremap / /\v
 " clear search highlight
 nnoremap <CR> :nohlsearch<cr>
 
-" disable backspace to force use of <C-h> and <C-w>
-inoremap <bs> <nop>
+" " disable backspace to force use of <C-h> and <C-w>
+" inoremap <bs> <nop>
 
 " disable cursor keys in normal mode
 map <Left>  <nop>
@@ -133,19 +156,7 @@ inoremap $t <><esc>i
 " command-t as f
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 let g:CommandTMaxHeight=20
-
-" highlights
-highlight CursorLineNr ctermbg=11 ctermfg=13
-highlight NonText ctermbg=00 ctermfg=10
-highlight SpecialKey ctermbg=00 ctermfg=10
-highlight ExtraWhitespace ctermbg=01 ctermfg=00
-
-" match extra white space and highlight
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+let g:CommandTTraverseSCM="pwd"
 
 augroup Vim
   autocmd!
@@ -168,9 +179,10 @@ augroup Vim
   " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 
-  autocmd FileType ruby setlocal foldmethod=syntax
-  autocmd FileType java setlocal foldmethod=syntax
-  autocmd FileType xml setlocal foldmethod=syntax
+  autocmd FileType ruby setlocal foldmethod=indent
+  " autocmd FileType ruby setlocal foldmethod=syntax
+  " autocmd FileType java setlocal foldmethod=syntax
+  " autocmd FileType xml setlocal foldmethod=syntax
 
 augroup END
 
@@ -208,7 +220,9 @@ let g:vroom_map_keys = 0
 let g:vroom_use_colors = 1
 let g:vroom_clear_screen = 0
 let g:vroom_write_all = 1
-let g:vroom_test_unit_command = 'm'
+" let g:vroom_test_unit_command = 'm'
+let g:vroom_use_dispatch = 1
+" let g:vroom_use_spring = 1
 
 map <leader>t :call vroom#RunTestFile()<cr>
 map <leader>T :call vroom#RunNearestTest()<cr>
@@ -259,8 +273,9 @@ function! RenameFile()
     endif
 endfunction
 
-set foldlevelstart=0
-let xml_syntax_folding=1
+" set foldlevelstart=0
+" let xml_syntax_folding=1
+set nofoldenable
 
 " Space to toggle folds.
 nnoremap <Space> za

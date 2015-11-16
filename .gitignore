@@ -7,5 +7,7 @@
 .powrc
 .powenv
 .env
+.env.test
 .rspec
 Procfile.dev
+sbin/*
