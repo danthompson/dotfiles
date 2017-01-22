@@ -1,7 +1,26 @@
 set nocompatible                " vim settings over vi
 
-call pathogen#infect()          " load pathogen bundles
-call pathogen#helptags()        " and friends
+" call pathogen#infect()          " load pathogen bundles
+" call pathogen#helptags()        " and friends
+
+call plug#begin('~/.vim/plugged')
+Plug 'wincent/command-t'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-liquid'
+Plug 'jnwhiteh/vim-golang'
+Plug 'tpope/vim-commentary'
+Plug 'kchmck/vim-coffee-script'
+Plug 'chriskempson/base16-vim'
+Plug 'noahfrederick/Hemisu'
+Plug 'vim-scripts/VimClojure'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-classpath'
+Plug 'tpope/vim-fugitive'
+Plug 'skalnik/vim-vroom'
+Plug 'tpope/vim-dispatch'
+Plug 'posva/vim-vue'
+call plug#end()
 
 set shell=bash                  " magic allows rvm support
 
@@ -101,6 +120,7 @@ endif
 " alias W/Q to w/q for sanity
 command! W :w
 command! Q :q
+command! Ccl :ccl
 
 " map leader
 let mapleader=","
@@ -129,6 +149,9 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+nnoremap <F1> <nop>
+inoremap <F1> <nop>
 
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>w :set invwrap wrap?<CR>
@@ -223,6 +246,7 @@ let g:vroom_write_all = 1
 " let g:vroom_test_unit_command = 'm'
 let g:vroom_use_dispatch = 1
 " let g:vroom_use_spring = 1
+let g:vroom_cucumber_path = 'bundle exec cucumber'
 
 map <leader>t :call vroom#RunTestFile()<cr>
 map <leader>T :call vroom#RunNearestTest()<cr>
