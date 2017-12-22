@@ -1,4 +1,4 @@
-export EDITOR='mvim -v'
+export EDITOR='vim'
 
 alias rlu='sudo systemsetup -f -setremotelogin on && sudo systemsetup -f -getremotelogin'
 alias rld='sudo systemsetup -f -setremotelogin off && sudo systemsetup -f -getremotelogin'
@@ -6,8 +6,9 @@ alias rl='sudo systemsetup -f -getremotelogin'
 
 # Path additions
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
-export JAVA_HOME="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="$HOME/.node_modules_global/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
 
 # Grep default options
 GREP_OPTIONS=
@@ -19,116 +20,33 @@ export GREP_OPTIONS
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# nodenv
+if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+
 # Source auto completions
 source /usr/local/etc/bash_completion.d/git-completion.bash
 source /usr/local/etc/bash_completion.d/git-prompt.sh
-complete -C aws_completer aws
 
-alias e='vim'
-alias vi='mvim -v'
-alias vim='mvim -v'
-
-# ls with colors
+# ls
 alias ls='ls -G'
 
-# Git
+# git
 alias g='git'
 
+# tmate
 alias ta='tmux attach -t '
 alias tn='tmux new -s '
 alias tl='tmux ls'
 
-# Gems
-alias r='rails'
-alias rdm='rake db:migrate'
-alias rdp='rake db:test:prepare'
-alias rr='rake routes'
+# ruby
 alias b='bundle'
 alias be='bundle exec'
+
+# heroku
 alias h='heroku'
-alias hc='heroku run console -a'
-alias s='shoreman'
-alias gd='guard -cn f'
 
-alias tdl='tail -f ./log/development.log'
-alias cdl='> ./log/development.log'
-alias ttl='tail -f ./log/test.log'
-alias ctl='> ./log/test.log'
-
-# Postgres Up/Down
-alias pgu='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias pgd='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
-
-# MySQL
-alias myu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist'
-alias myd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist'
-
-# Elastic Search
-alias esu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist'
-alias esd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist'
-
-# Memcached
-alias mcu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist'
-alias mcd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist'
-
-# Redis
-alias rdu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.redis.plist'
-alias rdd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist'
-
-alias mdu='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist'
-alias mdd='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist'
-
-# Nginx
-alias ngu='launchctl load -F ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
-alias ngd='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
-
-# Serve the current directory. Defaults to port 9090.
-# Usage:
-#   $ serve
-#   $ serve 1234
-function serve {
-  port="${1:-9090}"
-  ruby -run -e httpd . -p $port
-}
-
-# # Configure colors, if available.
-# if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-#   c_reset='\[\e[0m\]'
-#   # c_user='\[\033[1;33m\]'
-#   c_user=
-#   c_path='\[\e[0;33m\]'
-#   c_git_clean='\[\e[0;36m\]'
-#   c_git_dirty='\[\e[0;35m\]'
-# else
-#   c_reset=
-#   c_user=
-#   c_path=
-#   c_git_clean=
-#   c_git_dirty=
-# fi
-
-#   # Function to assemble the Git part of our prompt.
-#   git_prompt() {
-#     if [ ! $(git rev-parse --git-dir) > /dev/null 2>&1 ] -o
-#        [ $(git rev-parse --show-toplevel) == $HOME ]; then
-#       return 0
-#     fi
-
-#     git_branch=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
-
-#     if git diff --quiet 2>/dev/null >&2; then
-#       git_color="$c_git_clean"
-#     else
-#       git_color="$c_git_dirty"
-#     fi
-
-#     echo " [$git_color$git_branch${c_reset}]"
-#   }
-
-# # The prompt.
-# PROMPT_COMMAND='PS1="${c_user}\u${c_reset}@${c_user}\h${c_reset}:${c_path}\w${c_reset}$(git_prompt)\$ "'
-
-
+BIBlack="\[\033[1;90m\]"      # Black (Bold High Intensty)
+IBlack="\[\033[0;90m\]"       # Black (High Intensty)
 MAGENTA="\[\033[0;35m\]"
 YELLOW="\[\033[0;33m\]"
 BLUE="\[\033[34m\]"
@@ -138,14 +56,11 @@ GREEN="\[\033[0;32m\]"
 RED="\[\033[0;31m\]"
 LIGHT_RED="\[\033[1;31m\]"
 RESET="\[\e[0m\]"
-# GIT_PS1_SHOWDIRTYSTATE=true
-# GIT_PS1_SHOWSTASHSTATE=true
-# GIT_PS1_SHOWUNTRACKEDFILES=true
-export LS_OPTIONS='--color=auto'
-export CLICOLOR='Yes'
-export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
 
-export PS1=$LIGHT_GRAY"\u@\h"'$(
+export PS1=$IBlack"\u@\h"'$(
   if [[ $(__git_ps1) =~ \*\)$ ]]
   # a file has been modified but not added
   then echo "'$MAGENTA'"$(__git_ps1 " (%s)")
@@ -156,5 +71,59 @@ export PS1=$LIGHT_GRAY"\u@\h"'$(
   else echo "'$CYAN'"$(__git_ps1 " (%s)")
   fi)'$YELLOW" \w"$RESET" $ "
 
-# added by travis gem
-[ -f /Users/dan/.travis/travis.sh ] && source /Users/dan/.travis/travis.sh
+# serve - Serves the current directory. Defaults to port 9090.
+# Usage:
+#   $ serve
+#   $ serve 1234
+function serve {
+  port="${1:-9090}"
+  ruby -run -e httpd . -p $port
+}
+
+# tmate/tmux pairing helpers
+TMATE_PAIR_NAME="$(whoami)-pair"
+TMATE_SOCKET_LOCATION="/tmp/tmate-pair.sock"
+TMATE_TMUX_SESSION="/tmp/tmate-tmux-session"
+
+# Get current tmate connection url
+tmate-url() {
+  url="$(tmate -S $TMATE_SOCKET_LOCATION display -p '#{tmate_ssh}')"
+  echo "$url" | tr -d '\n' | pbcopy
+  echo "Copied tmate url for $TMATE_PAIR_NAME:"
+  echo "$url"
+}
+
+# Start a new tmate pair session if one doesn't already exist
+# If creating a new session, the first argument can be an existing TMUX session to connect to automatically
+tmate-pair() {
+  if [ ! -e "$TMATE_SOCKET_LOCATION" ]; then
+    tmate -S "$TMATE_SOCKET_LOCATION" -f "$HOME/.tmate.conf" new-session -d -s "$TMATE_PAIR_NAME"
+
+    while [ -z "$url" ]; do
+      url="$(tmate -S $TMATE_SOCKET_LOCATION display -p '#{tmate_ssh}')"
+    done
+    tmate-url
+    sleep 1
+
+    if [ -n "$1" ]; then
+      echo $1 > $TMATE_TMUX_SESSION
+      tmate -S "$TMATE_SOCKET_LOCATION" send -t "$TMATE_PAIR_NAME" "TMUX='' tmux attach-session -t $1" ENTER
+    fi
+  fi
+  tmate -S "$TMATE_SOCKET_LOCATION" attach-session -t "$TMATE_PAIR_NAME"
+}
+
+# Close the pair because security
+tmate-unpair() {
+  if [ -e "$TMATE_SOCKET_LOCATION" ]; then
+    if [ -e "$TMATE_SOCKET_LOCATION" ]; then
+      tmux detach -s $(cat $TMATE_TMUX_SESSION)
+      rm -f $TMATE_TMUX_SESSION
+    fi
+
+    tmate -S "$TMATE_SOCKET_LOCATION" kill-session -t "$TMATE_PAIR_NAME"
+    echo "Killed session $TMATE_PAIR_NAME"
+  else
+    echo "Session already killed"
+  fi
+}

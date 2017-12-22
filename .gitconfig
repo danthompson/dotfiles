@@ -62,7 +62,7 @@
   re = rebase
   st = stash
   sub = submodule
-  s = status
+  s = status -sb
   bp = !git branch --merged master | grep -v master | xargs git branch -d && git remote prune origin
 
 [format]
@@ -78,6 +78,7 @@
 	smudge = git hawser smudge %f
 	required = true
 [filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
 	required = true

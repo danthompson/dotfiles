@@ -1,36 +1,33 @@
 set nocompatible                " vim settings over vi
 
-" call pathogen#infect()          " load pathogen bundles
-" call pathogen#helptags()        " and friends
-
 call plug#begin('~/.vim/plugged')
-Plug 'wincent/command-t'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-liquid'
-Plug 'jnwhiteh/vim-golang'
-Plug 'tpope/vim-commentary'
-Plug 'kchmck/vim-coffee-script'
-Plug 'chriskempson/base16-vim'
-Plug 'noahfrederick/Hemisu'
-Plug 'vim-scripts/VimClojure'
-Plug 'tpope/vim-fireplace'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-classpath'
-Plug 'tpope/vim-fugitive'
-Plug 'skalnik/vim-vroom'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
-Plug 'posva/vim-vue'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vim-scripts/VimClojure'
+Plug 'wincent/command-t', { 'do': 'cd ruby/command-t && ruby extconf.rb && make' }
+Plug 'janko-m/vim-test'
+Plug 'tpope/vim-abolish'
 call plug#end()
-
-set shell=bash                  " magic allows rvm support
 
 set encoding=utf-8              " utf-8
 set hidden                      " backgrounding buffers, remember marks/undos
 set clipboard=unnamed           " link vim and system clipboard
 set visualbell                  " no beeps
 set t_vb=                       " really no beeps
-set showmatch                   " show matching brackets, and parans
 set scrolloff=3                 " keep lines visiable when at buffers edge
+set splitbelow                  " open splits below
+set splitright                  " and vsplits to the right
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+set title
+set titleold=""
+set titlestring=%F
 
 set history=1000                " sizable memory
 set backup                      " enable backups
@@ -43,7 +40,6 @@ set undoreload=10000
 
 set nowrap                      " no wrap for text
 set textwidth=78                " wrap long lines at 80 chars
-set cursorline                  " highlight line cursor is on
 set colorcolumn=80              " highlight column
 set ruler                       " show cursor position
 set number                      " line numbers
@@ -52,78 +48,50 @@ set laststatus=2                " always show status line
 set cmdheight=1                 " command line height
 set showcmd                     " display incomplete commands
 set wildmode=longest,list       " tab completion similar to shell
-set wildignore+=**/dist,**/bower_components,**/node_modules,tmp
-
-set splitbelow                  " open splits below
-set splitright                  " and vsplits to the right
-
-set hlsearch                    " highlight search results
-set incsearch                   " highlight matches while searching
-set ignorecase                  " ignore case when searching
-set smartcase                   " override ignorecase if query has uppercase
+set wildignore+=**/dist,**/bower_components,**/node_modules,tmp,docker_data
 
 set autoindent                  " like a robot
-set expandtab                   " use spaces place of tabs
+set expandtab                   " use spaces in place of tabs
 set tabstop=2                   " space(s) when tabbing
 set shiftwidth=2                " space(s) for indentation
 set softtabstop=2               " space(s) when tabbing always
 set smarttab                    " backspacing deletes space-expanded tabs
 set nojoinspaces                " do not use spaces when doing a line join
 set backspace=indent,eol,start  " allow backspacing over everything
-
 set list                        " display unprintable characters
 set listchars=tab:\|\ ,trail:·,extends:>,precedes:<,nbsp:·
 
+set foldmethod=manual           " turn off folds
+set nofoldenable                " dito
 
+set showmatch                   " show matching brackets, and parans
+set hlsearch                    " highlight search results
+set incsearch                   " highlight matches while searching
+set ignorecase                  " ignore case when searching
+set smartcase                   " override ignorecase if query has uppercase
+
+set t_Co=256
 syntax on
 colorscheme default
 set background=dark
-" colorscheme base16-default      " ...
-" set background=dark             " ...
 
-" colorscheme vividchalk
-" set background=dark
-
-" " highlights
-" highlight CursorLineNr ctermbg=11 ctermfg=03
-highlight NonText ctermbg=00 ctermfg=10
+highlight CursorLineNr ctermbg=11 ctermfg=03
+highlight NonText ctermbg=NONE ctermfg=10
 highlight SpecialKey ctermbg=00 ctermfg=10
 highlight ExtraWhitespace ctermbg=01 ctermfg=00
+highlight ColorColumn ctermbg=232
 
-highlight ColorColumn  ctermbg=234 ctermfg=NONE
-" highlight CursorLine ctermbg=10 ctermfg=NONE
-
-" match extra white space and highlight
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-" status layout
-set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-set title
-set titleold=""
-set titlestring=%F              " file path
+let mapleader=","  " fearless leader
 
-if has("gui_running")           " GUI options
-
-  set lines=100                 " window dimensions
-  set columns=171               " ditto
-  set go-=T                     " hide toolbar
-  set guioptions-=L             " hide scrollbar
-  set guioptions-=r             " ditto
-  set guioptions=aAce           " ditto
-
-endif
-
-" alias W/Q to w/q for sanity
-command! W :w
-command! Q :q
-command! Ccl :ccl
-
-" map leader
-let mapleader=","
+command! W :w      " alias W as w
+command! Q :q      " alias Q as q
+command! Ccl :ccl  " alias Ccl as ccl
 
 " use Q instead of Ex mode
 map Q gq
@@ -134,9 +102,6 @@ vnoremap / /\v
 
 " clear search highlight
 nnoremap <CR> :nohlsearch<cr>
-
-" " disable backspace to force use of <C-h> and <C-w>
-" inoremap <bs> <nop>
 
 " disable cursor keys in normal mode
 map <Left>  <nop>
@@ -150,16 +115,18 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" disable help
 nnoremap <F1> <nop>
 inoremap <F1> <nop>
 
+" easier splits
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>w :set invwrap wrap?<CR>
 
 " switch between last two buffers
 nnoremap <leader><leader> <c-^>
 
-" parenthesis/bracket expanding
+" expand parenthesis/bracket/quote
 vnoremap $1 <esc>`>a)<esc>`<i(<esc>
 vnoremap $2 <esc>`>a]<esc>`<i[<esc>
 vnoremap $3 <esc>`>a}<esc>`<i{<esc>
@@ -167,7 +134,7 @@ vnoremap $$ <esc>`>a"<esc>`<i"<esc>
 vnoremap $q <esc>`>a'<esc>`<i'<esc>
 vnoremap $e <esc>`>a"<esc>`<i"<esc>
 
-" auto complete of (, ", ', [
+" wrap parenthesis/bracket/quote
 inoremap $1 ()<esc>i
 inoremap $2 []<esc>i
 inoremap $3 {}<esc>i
@@ -181,11 +148,11 @@ map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 let g:CommandTMaxHeight=20
 let g:CommandTTraverseSCM="pwd"
 
+" jsx in js
+let g:jsx_ext_required = 0
+
 augroup Vim
   autocmd!
-
-  " enable file type detection and load indent files
-  filetype plugin indent on
 
   " reload vimrc after saving
   autocmd BufWritePost ~/.vimrc so ~/.vimrc
@@ -199,20 +166,10 @@ augroup Vim
     \   exe "normal g`\"" |
     \ endif
 
-  " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
-
-  autocmd FileType ruby setlocal foldmethod=indent
-  " autocmd FileType ruby setlocal foldmethod=syntax
-  " autocmd FileType java setlocal foldmethod=syntax
-  " autocmd FileType xml setlocal foldmethod=syntax
+  " Rakefile and Gemfile are Ruby
+  autocmd BufRead,BufNewFile {Gemfile,Rakefile,config.ru} set ft=ruby
 
 augroup END
-
-" spell check for filetypes
-autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us syntax=markdown
-autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=en_us
-autocmd FileType gitcommit setlocal spell spelllang=en_us
 
 augroup SizeWindow
   autocmd!
@@ -238,22 +195,20 @@ function! InsertTabWrapper()
     endif
 endfunction
 
-" configure vroom
-let g:vroom_map_keys = 0
-let g:vroom_use_colors = 1
-let g:vroom_clear_screen = 0
-let g:vroom_write_all = 1
-" let g:vroom_test_unit_command = 'm'
-let g:vroom_use_dispatch = 1
-" let g:vroom_use_spring = 1
-let g:vroom_cucumber_path = 'bundle exec cucumber'
+nmap <silent> <leader>T :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
-map <leader>t :call vroom#RunTestFile()<cr>
-map <leader>T :call vroom#RunNearestTest()<cr>
+" test using dispatch.vim
+let test#strategy = "dispatch"
+let test#javascript#mocha#options = '-R spec --compilers js:babel-core/register'
 
-" promote declaration to let
+" promote declaration to rspec let
 command! PromoteToLet :call PromoteToLet()
 map <leader>ll :PromoteToLet<cr>
+
 function! PromoteToLet()
   :normal! dd
   " :exec '?^\s*it\>'
@@ -264,29 +219,18 @@ endfunction
 
 " strip trailing whitespace (,ss)
 noremap <leader>ss :call StripWhitespace()<CR>
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
 
-" open changed files
-command! OpenChangedFiles :call OpenChangedFiles()
-noremap <leader>oc :call OpenChangedFiles()<CR>
-function! OpenChangedFiles()
-  only " Close all windows, unless they're modified
-  let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f 3')
-  let filenames = split(status, "\n")
-  exec "edit " . filenames[0]
-  for filename in filenames[1:]
-    exec "sp " . filename
-  endfor
+function! StripWhitespace()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
 endfunction
 
 " rename current file
 map <leader>sa :call RenameFile()<cr>
+
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'))
@@ -296,14 +240,3 @@ function! RenameFile()
         redraw!
     endif
 endfunction
-
-" set foldlevelstart=0
-" let xml_syntax_folding=1
-set nofoldenable
-
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
-
-" Make zO recursively open whatever fold we're in, even if it's partially open.
-nnoremap zO zczO
