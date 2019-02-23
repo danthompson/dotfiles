@@ -8,7 +8,8 @@ alias rl='sudo systemsetup -f -getremotelogin'
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/.node_modules_global/bin:$PATH"
-export PATH="$HOME/.yarn/bin:$PATH"
+# export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Grep default options
 GREP_OPTIONS=
@@ -23,9 +24,13 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # nodenv
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
+# pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
 # Source auto completions
 source /usr/local/etc/bash_completion.d/git-completion.bash
 source /usr/local/etc/bash_completion.d/git-prompt.sh
+source /usr/local/etc/bash_completion.d/aws_bash_completer
 
 # ls
 alias ls='ls -G'

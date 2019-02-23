@@ -14,6 +14,9 @@ Plug 'vim-scripts/VimClojure'
 Plug 'wincent/command-t', { 'do': 'cd ruby/command-t && ruby extconf.rb && make' }
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-abolish'
+Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
+" Plug 'w0rp/ale'
 call plug#end()
 
 set encoding=utf-8              " utf-8
@@ -48,7 +51,7 @@ set laststatus=2                " always show status line
 set cmdheight=1                 " command line height
 set showcmd                     " display incomplete commands
 set wildmode=longest,list       " tab completion similar to shell
-set wildignore+=**/dist,**/bower_components,**/node_modules,tmp,docker_data
+set wildignore+=**/dist,**/bower_components,**/node_modules,tmp,docker_data,build
 
 set autoindent                  " like a robot
 set expandtab                   " use spaces in place of tabs
@@ -70,15 +73,20 @@ set incsearch                   " highlight matches while searching
 set ignorecase                  " ignore case when searching
 set smartcase                   " override ignorecase if query has uppercase
 
+set relativenumber
+
 set t_Co=256
 syntax on
 colorscheme default
-set background=dark
 
 highlight CursorLineNr ctermbg=11 ctermfg=03
 highlight NonText ctermbg=NONE ctermfg=10
 highlight SpecialKey ctermbg=00 ctermfg=10
 highlight ExtraWhitespace ctermbg=01 ctermfg=00
+
+" set background=light
+" highlight ColorColumn ctermbg=255
+set background=dark
 highlight ColorColumn ctermbg=232
 
 match ExtraWhitespace /\s\+$/
@@ -150,6 +158,11 @@ let g:CommandTTraverseSCM="pwd"
 
 " jsx in js
 let g:jsx_ext_required = 0
+
+" a.l.e.
+let g:ale_fixers = { 'javascript': [ 'prettier_standard' ] }
+let g:ale_linters = { 'javascript': [''] }
+let g:ale_fix_on_save = 1
 
 augroup Vim
   autocmd!

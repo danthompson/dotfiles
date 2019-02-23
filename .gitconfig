@@ -1,6 +1,6 @@
 [user]
-  name = Dan Thompson
-  email = dwthompson@gmail.com
+	name = Dan Thompson
+	email = dwthompson@gmail.com
 
 [github]
   user = danthompson
@@ -78,7 +78,7 @@
 	smudge = git hawser smudge %f
 	required = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
