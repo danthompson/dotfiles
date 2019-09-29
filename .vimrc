@@ -1,4 +1,11 @@
-set nocompatible                " vim settings over vi
+set nocompatible
+
+" project-specific vimrc but disable shell and write ops
+set exrc
+set secure
+
+set shell=/bin/bash
+set rtp+=/usr/local/opt/fzf
 
 call plug#begin('~/.vim/plugged')
 Plug 'mxw/vim-jsx'
@@ -11,12 +18,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/VimClojure'
-Plug 'wincent/command-t', { 'do': 'cd ruby/command-t && ruby extconf.rb && make' }
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-abolish'
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
-" Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'slim-template/vim-slim'
+Plug 'habamax/vim-colors-defminus'
+Plug 'noahfrederick/vim-hemisu'
 call plug#end()
 
 set encoding=utf-8              " utf-8
@@ -77,23 +89,23 @@ set relativenumber
 
 set t_Co=256
 syntax on
-colorscheme default
+" colorscheme default
 
-highlight CursorLineNr ctermbg=11 ctermfg=03
-highlight NonText ctermbg=NONE ctermfg=10
-highlight SpecialKey ctermbg=00 ctermfg=10
-highlight ExtraWhitespace ctermbg=01 ctermfg=00
+" highlight CursorLineNr ctermbg=11 ctermfg=03
+" highlight NonText ctermbg=NONE ctermfg=10
+" highlight SpecialKey ctermbg=00 ctermfg=10
+" highlight ExtraWhitespace ctermbg=01 ctermfg=00
 
 " set background=light
 " highlight ColorColumn ctermbg=255
-set background=dark
-highlight ColorColumn ctermbg=232
+" " set background=dark
+" " highlight ColorColumn ctermbg=233
 
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+" match ExtraWhitespace /\s\+$/
+" autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+" autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+" autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+" autocmd BufWinLeave * call clearmatches()
 
 let mapleader=","  " fearless leader
 
@@ -151,18 +163,36 @@ inoremap $q ''<esc>i
 inoremap $e ""<esc>i
 inoremap $t <><esc>i
 
-" command-t as f
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-let g:CommandTMaxHeight=20
-let g:CommandTTraverseSCM="pwd"
+set grepprg=rg\ --vimgrep
+let g:fzf_layout = { 'down': '~33%' }
+
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>r :Rg<CR>
 
 " jsx in js
 let g:jsx_ext_required = 0
 
 " a.l.e.
-let g:ale_fixers = { 'javascript': [ 'prettier_standard' ] }
-let g:ale_linters = { 'javascript': [''] }
 let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_text_change = 'never'
+let g:ale_line_on_enter = 0
+let g:ale_fixers = {
+      \ 'javascript': [ 'prettier_standard' ],
+      \ 'ruby': ['standardrb'],
+      \ 'rust': ['rustfmt']
+      \ }
+let g:ale_linters = {
+      \ 'cs': ['OmniSharp'],
+      \ 'javascript': [''],
+      \ 'ruby': ['standardrb'],
+      \ 'rust': ['cargo']
+      \ }
+nmap <leader>1 <Plug>(ale_fix)
+nmap <silent> gd :ALEGoToDefinition<CR>
+nmap <silent> gh :ALEHover<CR>
 
 augroup Vim
   autocmd!

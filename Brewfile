@@ -30,3 +30,8 @@ cask 'vlc'
 
 tap 'caskroom/fonts'
 cask 'font-inconsolata'
+
+brew 'mas'
+mas 'Tweetbot', id: 557168941
+mas 'Slack', id: 803453959
+mas 'Xcode', id: 497799835

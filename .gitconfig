@@ -17,7 +17,7 @@
   autocrlf = input
 
 [merge]
-  tool = opendiff
+	tool = opendiff
 
 [push]
   default = current

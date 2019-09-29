@@ -10,6 +10,8 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/.node_modules_global/bin:$PATH"
 # export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+export PATH="$JAVA_HOME:$PATH"
 
 # Grep default options
 GREP_OPTIONS=
@@ -31,6 +33,13 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 source /usr/local/etc/bash_completion.d/git-completion.bash
 source /usr/local/etc/bash_completion.d/git-prompt.sh
 source /usr/local/etc/bash_completion.d/aws_bash_completer
+
+export SHELL_SESSION_HISTORY=0
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+shopt -s histappend
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # ls
 alias ls='ls -G'
@@ -132,3 +141,14 @@ tmate-unpair() {
     echo "Session already killed"
   fi
 }
+
+# Setup fzf
+# ---------
+export FZF_DEFAULT_OPTS='--no-height'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!{.bundle,.git,node_modules,temp}/*"'
+if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
+  export PATH="$PATH:/usr/local/opt/fzf/bin"
+fi
+[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.bash" 2> /dev/null
+source "/usr/local/opt/fzf/shell/key-bindings.bash"
+
