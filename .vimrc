@@ -29,6 +29,8 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'slim-template/vim-slim'
 Plug 'habamax/vim-colors-defminus'
 Plug 'noahfrederick/vim-hemisu'
+Plug 'tomasiser/vim-code-dark'
+Plug 'aunsira/macvim-light'
 call plug#end()
 
 set encoding=utf-8              " utf-8
@@ -39,7 +41,7 @@ set t_vb=                       " really no beeps
 set scrolloff=3                 " keep lines visiable when at buffers edge
 set splitbelow                  " open splits below
 set splitright                  " and vsplits to the right
-set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+set statusline=\ %<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 set title
 set titleold=""
 set titlestring=%F
@@ -65,6 +67,12 @@ set showcmd                     " display incomplete commands
 set wildmode=longest,list       " tab completion similar to shell
 set wildignore+=**/dist,**/bower_components,**/node_modules,tmp,docker_data,build
 
+highlight ColorColumn ctermbg=242
+
+set suffixesadd=.rb
+set path+=lib/**,test/**,app/**,spec/**
+let g:ruby_path = &path
+
 set autoindent                  " like a robot
 set expandtab                   " use spaces in place of tabs
 set tabstop=2                   " space(s) when tabbing
@@ -87,7 +95,7 @@ set smartcase                   " override ignorecase if query has uppercase
 
 set relativenumber
 
-set t_Co=256
+" set t_Co=256
 syntax on
 " colorscheme default
 
@@ -112,6 +120,7 @@ let mapleader=","  " fearless leader
 command! W :w      " alias W as w
 command! Q :q      " alias Q as q
 command! Ccl :ccl  " alias Ccl as ccl
+command! Bd :bd  " alias Bd as bd
 
 " use Q instead of Ex mode
 map Q gq

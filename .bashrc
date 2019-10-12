@@ -145,7 +145,7 @@ tmate-unpair() {
 # Setup fzf
 # ---------
 export FZF_DEFAULT_OPTS='--no-height'
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!{.bundle,.git,node_modules,temp}/*"'
+export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow --glob "!{.keep,.bundle,.git,node_modules,temp}/*"'
 if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
   export PATH="$PATH:/usr/local/opt/fzf/bin"
 fi
