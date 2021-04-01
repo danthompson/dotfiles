@@ -1,0 +1,112 @@
+# Remap Prefix
+set -g prefix C-a
+unbind C-b
+
+# # Set indexs to 1
+# set -sg escape-time 1
+# set -g base-index 1
+# set -g pane-base-index 1
+
+# # Shortcut to rebind the .tmux.conf
+# bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+# # Send prefix to the program in use
+# bind C-a send-prefix
+
+# # Shortcuts to create split windows
+# bind | split-window -h
+# bind - split-window -v
+
+# # Shortcuts to select focused pane
+# bind h select-pane -L
+# bind j select-pane -D
+# bind k select-pane -U
+# bind l select-pane -R
+
+# # Shortcuts to cycle through panes
+# bind -r C-h select-window -t :-
+# bind -r C-l select-window -t :+
+
+# # Shortcuts to resize the pane
+# bind H resize-pane -L 5
+# bind J resize-pane -D 5
+# bind K resize-pane -U 5
+# bind L resize-pane -R 5
+
+# # New windows in pwd
+# bind-key c  new-window -c "#{pane_current_path}"
+# bind-key % split-window -h -c "#{pane_current_path}"
+# bind-key '"' split-window -c "#{pane_current_path}"
+
+# # pane movement
+# bind-key f command-prompt -p "join pane from:"  "join-pane -s '%%'"
+# bind-key t command-prompt -p "send pane to:"  "join-pane -t '%%'"
+
+# # # Turn the mouse off
+# # setw -g mode-mouse off
+
+# # Set terminal colors
+# set -g default-terminal "screen-256color"
+
+# # Set window list colors
+# setw -g window-status-fg cyan
+# setw -g window-status-bg default
+# setw -g window-status-attr dim
+# setw -g window-status-format ' #I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244] #F '
+
+# # Set window list active colors
+# setw -g window-status-current-fg colour81
+# setw -g window-status-current-bg colour238
+# setw -g window-status-current-attr bold
+# setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=colour50] #F '
+
+# # Set border colors
+# set -g pane-border-fg green
+# set -g pane-border-bg black
+# set -g pane-active-border-fg white
+# set -g pane-active-border-bg yellow
+
+# # Set message colors
+# set -g message-fg white
+# set -g message-bg black
+# set -g message-attr bright
+
+# # Set status line colors
+# set -g status-fg white
+# set -g status-bg colour235
+
+# # Status Bar
+# # set -g status-utf8 on
+# set -g status-interval 60
+# set -g status-left-length 40
+# set -g status-left ' #[fg=grey]#S #[fg=yellow]#I:#P #[default] '
+# set -g status-right " #[fg=grey]%Y-%m-%d %H:%M "
+# set -g status-justify 'centre'
+# set -g monitor-activity on
+# set -g visual-activity on
+
+# # set -g status-bg 'colour235'
+# # set -g message-command-style fg='colour222',bg='colour238'
+# # set -g status-justify 'centre'
+# # set -g status-left-length '100'
+# # set -g status 'on'
+# # set -g pane-active-border-style fg='colour154'
+# # set -g message-style fg='colour222',bg='colour238'
+# # set -g status-right-length '100'
+# # set -g status-right-attr 'none'
+# # set -g status-attr 'none'
+# # set -g status-utf8 'on'
+# # set -g pain-border-style fg='colour238'
+# # set -g status-left-attr 'none'
+# # setw -g window-status-style fg='colour121',bg='coour235'
+# # setw -g window-status-attr 'none'
+# # setw -g window-status-activity-status fg='colour154',bg='colour235'
+# # setw -g window-status-activity-attr 'none'
+# # setw -g window-status-separator ''
+# # set -g status-left '#[fg=colour232,bg=colour154] #S #[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #W #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour121,bg=colour235] #(whoami)  #(uptime  | cut -d " " -f 1,2,3) #[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]'
+# # set -g status-right '#[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour121,bg=colour235] %r  %a  %Y #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #H #[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour232,bg=colour154] #(rainbarf --battery --remaining --no-rgb) '
+# # setw -g window-status-format '#[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]#[default] #I  #W #[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]'
+# # setw -g window-status-current-format '#[fg=colour235,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #I  #W  #F #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]'
+
+# # Set copy and paste
+# set -g default-command 'reattach-to-user-namespace -l /bin/bash'

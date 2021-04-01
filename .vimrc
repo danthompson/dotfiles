@@ -29,8 +29,14 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'slim-template/vim-slim'
 Plug 'habamax/vim-colors-defminus'
 Plug 'noahfrederick/vim-hemisu'
+Plug 'ajmwagar/vim-deus'
 Plug 'tomasiser/vim-code-dark'
 Plug 'aunsira/macvim-light'
+Plug 'taniarascia/new-moon.vim'
+Plug 'noahfrederick/vim-noctu'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'liuchengxu/space-vim-theme'
+Plug 'yasukotelin/shirotelin'
 call plug#end()
 
 set encoding=utf-8              " utf-8
@@ -67,7 +73,7 @@ set showcmd                     " display incomplete commands
 set wildmode=longest,list       " tab completion similar to shell
 set wildignore+=**/dist,**/bower_components,**/node_modules,tmp,docker_data,build
 
-highlight ColorColumn ctermbg=242
+" highlight ColorColumn ctermbg=242
 
 set suffixesadd=.rb
 set path+=lib/**,test/**,app/**,spec/**
@@ -179,6 +185,9 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>r :Rg<CR>
 
+" rust
+let g:rustfmt_autosave = 1
+
 " jsx in js
 let g:jsx_ext_required = 0
 
@@ -190,18 +199,33 @@ let g:ale_lint_on_text_change = 'never'
 let g:ale_line_on_enter = 0
 let g:ale_fixers = {
       \ 'javascript': [ 'prettier_standard' ],
-      \ 'ruby': ['standardrb'],
-      \ 'rust': ['rustfmt']
+      \ 'ruby': ['rubocop'],
+      \ 'rust': ['rustfmt'],
+      \ 'lua': ['prettier']
       \ }
 let g:ale_linters = {
       \ 'cs': ['OmniSharp'],
       \ 'javascript': [''],
-      \ 'ruby': ['standardrb'],
-      \ 'rust': ['cargo']
+      \ 'ruby': ['rubocop'],
+      \ 'rust': ['cargo'],
+      \ 'lua': ['prettier']
       \ }
 nmap <leader>1 <Plug>(ale_fix)
 nmap <silent> gd :ALEGoToDefinition<CR>
 nmap <silent> gh :ALEHover<CR>
+" highlight ALEWarning ctermbg=DarkMagenta guibg=DarkMagenta
+" highlight ALEWarning ctermbg=none cterm=underline
+" highlight ALEError ctermbg=none cterm=underline
+" highlight clear ALEError
+" highlight clear ALEWarning
+" highlight ALEErrorSign ctermfg=red ctermbg=none guifg=#000000 guibg=#000000
+" highlight ALEWarningSign ctermfg=yellow ctermbg=none guifg=#000000 guibg=#000000
+" highlight ALEError ctermbg=none ctermfg=196
+" highlight ALEWarning ctermbg=none ctermfg=196
+" hi link ALEErrorSign    ALEError
+" hi link ALEWarningSign  ALEWarning
+hi link ALEError ALEErrorSign
+hi link ALEWarning ALEWarningSign
 
 augroup Vim
   autocmd!

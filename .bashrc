@@ -1,154 +1,75 @@
-export EDITOR='vim'
+#!/bin/bash
+# shellcheck disable=SC1090
+# shellcheck disable=SC2034
 
-alias rlu='sudo systemsetup -f -setremotelogin on && sudo systemsetup -f -getremotelogin'
-alias rld='sudo systemsetup -f -setremotelogin off && sudo systemsetup -f -getremotelogin'
-alias rl='sudo systemsetup -f -getremotelogin'
+shopt -s cdspell # autocorrect typos in path names
+shopt -s checkwinsize
+shopt -s histappend # append history
+shopt -s nocaseglob # case insensitive globbing
+
+test -r "/etc/bash_completion" && source "$_"
+test -r "/usr/local/etc/bash_completion.d/.aws_bash_completer" && source "$_"
+test -r "/usr/local/etc/bash_completion.d/git-completion.sh" && source "$_"
+test -r "/usr/local/etc/bash_completion.d/git-prompt.sh" && source "$_"
+test -r "/usr/local/opt/fzf/shell/completion.bash" && source "$_"
+test -r "/usr/local/opt/fzf/shell/key-bindings.bash" && source "$_"
+
 
 # Path additions
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/.node_modules_global/bin:$PATH"
-# export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
-export PATH="$JAVA_HOME:$PATH"
+# export PATH="$HOME/.cargo/bin:$PATH"
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+# export PATH="$JAVA_HOME:$PATH"
 
-# Grep default options
-GREP_OPTIONS=
-for pattern in .cvs .git .hg .svn .bundle log node_modules bower_components dist tmp; do
-    GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=$pattern --color"
-done
-export GREP_OPTIONS
+export EDITOR='vim'
+export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow --glob "!{.keep,.bundle,.git,node_modules,temp}/*"'
+export FZF_DEFAULT_OPTS='--no-height'
+export HISTCONTROL='ignoredups:erasedups:ignorespace'
+export HISTFILESIZE='100000'
+export HISTIGNORE="fg*"
+export HISTSIZE='100000'
+export HISTTIMEFORMAT="%Y/%m/%d %H:%M:%S:  "
+export LSCOLORS='ExGxFxdxCxDxDxHBhDhCgC'
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+export PAGER='less'
+export SHELL_SESSION_HISTORY='0'
+export MANPAGER='less -X'
 
-# rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-# nodenv
-if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
-
-# pyenv
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-
-# Source auto completions
-source /usr/local/etc/bash_completion.d/git-completion.bash
-source /usr/local/etc/bash_completion.d/git-prompt.sh
-source /usr/local/etc/bash_completion.d/aws_bash_completer
-
-export SHELL_SESSION_HISTORY=0
-export HISTCONTROL=ignoredups:erasedups
-export HISTSIZE=100000
-export HISTFILESIZE=100000
-shopt -s histappend
-PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
-# ls
+alias b='bundle'
+alias g='git'
 alias ls='ls -G'
 
-# git
-alias g='git'
+if command -v nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+if command -v pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if command -v rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-# tmate
-alias ta='tmux attach -t '
-alias tn='tmux new -s '
-alias tl='tmux ls'
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-# ruby
-alias b='bundle'
-alias be='bundle exec'
+GIT_PS1_DESCRIBE_STYLE=branch # detached-head description
+GIT_PS1_SHOWCOLORHINTS=true # colors (only PROMPT_COMMAND)
+GIT_PS1_SHOWDIRTYSTATE=true # working directory state (* modified/+ staged)
+GIT_PS1_SHOWSTASHSTATE=true # stashed state ($ stashed)
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM="auto" # HEAD vs upstream state (> ahead, < behind, <> diverged)
 
-# heroku
-alias h='heroku'
-
-BIBlack="\[\033[1;90m\]"      # Black (Bold High Intensty)
-IBlack="\[\033[0;90m\]"       # Black (High Intensty)
-MAGENTA="\[\033[0;35m\]"
-YELLOW="\[\033[0;33m\]"
-BLUE="\[\033[34m\]"
-LIGHT_GRAY="\[\033[0;37m\]"
+RESET="\[\033[0m\]"
+BLACK="\[\033[0;30m\]"
+BLUE="\[\033[0;34m\]"
 CYAN="\[\033[0;36m\]"
 GREEN="\[\033[0;32m\]"
+PURPLE="\[\033[0;35m\]"
 RED="\[\033[0;31m\]"
-LIGHT_RED="\[\033[1;31m\]"
-RESET="\[\e[0m\]"
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWSTASHSTATE=true
-GIT_PS1_SHOWUNTRACKEDFILES=true
+WHITE="\[\033[0;37m\]"
+YELLOW="\[\033[0;33m\]"
 
-export PS1=$IBlack"\u@\h"'$(
-  if [[ $(__git_ps1) =~ \*\)$ ]]
-  # a file has been modified but not added
-  then echo "'$MAGENTA'"$(__git_ps1 " (%s)")
-  elif [[ $(__git_ps1) =~ \+\)$ ]]
-  # a file has been added, but not commited
-  then echo "'$RED'"$(__git_ps1 " (%s)")
-  # the state is clean, changes are commited
-  else echo "'$CYAN'"$(__git_ps1 " (%s)")
-  fi)'$YELLOW" \w"$RESET" $ "
-
-# serve - Serves the current directory. Defaults to port 9090.
-# Usage:
-#   $ serve
-#   $ serve 1234
-function serve {
-  port="${1:-9090}"
-  ruby -run -e httpd . -p $port
-}
-
-# tmate/tmux pairing helpers
-TMATE_PAIR_NAME="$(whoami)-pair"
-TMATE_SOCKET_LOCATION="/tmp/tmate-pair.sock"
-TMATE_TMUX_SESSION="/tmp/tmate-tmux-session"
-
-# Get current tmate connection url
-tmate-url() {
-  url="$(tmate -S $TMATE_SOCKET_LOCATION display -p '#{tmate_ssh}')"
-  echo "$url" | tr -d '\n' | pbcopy
-  echo "Copied tmate url for $TMATE_PAIR_NAME:"
-  echo "$url"
-}
-
-# Start a new tmate pair session if one doesn't already exist
-# If creating a new session, the first argument can be an existing TMUX session to connect to automatically
-tmate-pair() {
-  if [ ! -e "$TMATE_SOCKET_LOCATION" ]; then
-    tmate -S "$TMATE_SOCKET_LOCATION" -f "$HOME/.tmate.conf" new-session -d -s "$TMATE_PAIR_NAME"
-
-    while [ -z "$url" ]; do
-      url="$(tmate -S $TMATE_SOCKET_LOCATION display -p '#{tmate_ssh}')"
-    done
-    tmate-url
-    sleep 1
-
-    if [ -n "$1" ]; then
-      echo $1 > $TMATE_TMUX_SESSION
-      tmate -S "$TMATE_SOCKET_LOCATION" send -t "$TMATE_PAIR_NAME" "TMUX='' tmux attach-session -t $1" ENTER
-    fi
-  fi
-  tmate -S "$TMATE_SOCKET_LOCATION" attach-session -t "$TMATE_PAIR_NAME"
-}
-
-# Close the pair because security
-tmate-unpair() {
-  if [ -e "$TMATE_SOCKET_LOCATION" ]; then
-    if [ -e "$TMATE_SOCKET_LOCATION" ]; then
-      tmux detach -s $(cat $TMATE_TMUX_SESSION)
-      rm -f $TMATE_TMUX_SESSION
-    fi
-
-    tmate -S "$TMATE_SOCKET_LOCATION" kill-session -t "$TMATE_PAIR_NAME"
-    echo "Killed session $TMATE_PAIR_NAME"
-  else
-    echo "Session already killed"
-  fi
-}
-
-# Setup fzf
-# ---------
-export FZF_DEFAULT_OPTS='--no-height'
-export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow --glob "!{.keep,.bundle,.git,node_modules,temp}/*"'
-if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-  export PATH="$PATH:/usr/local/opt/fzf/bin"
+PS1=
+if [[ -n $SSH_CLIENT || -n $SSH_CONNECTION ]] ; then
+  PS1=$PS1"${RED}\h:${RESET}:"
 fi
-[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.bash" 2> /dev/null
-source "/usr/local/opt/fzf/shell/key-bindings.bash"
-
+PS1=$PS1"[${YELLOW}\w${RESET}] "
+PS1=$PS1"\$(__git_ps1) "
+PS1=$PS1"${BLUE}\u${RESET} "
+PS1=$PS1"\$ "
