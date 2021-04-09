@@ -6,6 +6,7 @@ tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'heroku/brew'
 
+brew 'awscli'
 brew 'bash'
 brew 'fzf'
 brew 'git'
