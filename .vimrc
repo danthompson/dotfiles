@@ -8,6 +8,7 @@ set shell=/bin/bash
 set rtp+=/usr/local/opt/fzf
 
 call plug#begin('~/.vim/plugged')
+Plug 'hashivim/vim-terraform'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-classpath'
@@ -38,6 +39,7 @@ Plug 'noahfrederick/vim-noctu'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'liuchengxu/space-vim-theme'
 Plug 'yasukotelin/shirotelin'
+Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
 set encoding=utf-8              " utf-8
@@ -64,7 +66,7 @@ set undoreload=10000
 
 set nowrap                      " no wrap for text
 set textwidth=78                " wrap long lines at 80 chars
-set colorcolumn=80              " highlight column
+set colorcolumn=81              " highlight column
 set ruler                       " show cursor position
 set number                      " line numbers
 set numberwidth=5               " line numbers column width
@@ -227,6 +229,8 @@ nmap <silent> gh :ALEHover<CR>
 " hi link ALEWarningSign  ALEWarning
 hi link ALEError ALEErrorSign
 hi link ALEWarning ALEWarningSign
+
+let g:OmniSharp_server_stdio = 0
 
 augroup Vim
   autocmd!

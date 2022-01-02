@@ -19,12 +19,12 @@ test -r "/usr/local/opt/fzf/shell/key-bindings.bash" && source "$_"
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/.node_modules_global/bin:$PATH"
-# export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 # export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
 # export PATH="$JAVA_HOME:$PATH"
 
 export EDITOR='vim'
-export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow --glob "!{.keep,.bundle,.git,node_modules,temp}/*"'
+export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow --glob "!{.keep,.bundle,.git,node_modules,temp}/*" --glob "!{*.meta,*.asset}"'
 export FZF_DEFAULT_OPTS='--no-height'
 export HISTCONTROL='ignoredups:erasedups:ignorespace'
 export HISTFILESIZE='100000'
