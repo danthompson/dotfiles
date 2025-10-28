@@ -53,17 +53,27 @@
   p = push
   cm = commit -m
   cl = clone
+  xcl = "!f(){ u=$1; d=${u#*:}; d=${d%.git}; mkdir -p \"${d%/*}\"; git clone \"$u\" \"$d\"; }; f"
   co = checkout
   cp = cherry-pick
   d = diff
   dc = diff --cached
   l = log --graph --abbrev-commit --date=relative --decorate --all
   y = log --pretty=format:\"%C(green)%ad%Creset %C(yellow)%h%Creset - %s%C(red)%d%Creset\" --date=short --all --decorate --author=dwthompson@gmail.com
+  yy = log --graph --abbrev-commit --date=relative --decorate -n 3 --pretty=format:"%B"
   re = rebase
   st = stash
   sub = submodule
   s = status -sb
   bp = !git branch --merged master | grep -v master | xargs git branch -d && git remote prune origin
+
+  ; experimental
+  ; stgr = "!f() { for i in `git stash list --format=\"%gd\"` ; do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
+  ; churn = "!git log --format=format: --name-only --since='1 year ago' | sort | uniq -c | sort -nr | head -20" # what changes most
+  ; who = shortlog -sn --no-merges # who built this, not root
+  ; where = "!git log -i -E --grep='fix|bug|broken' --name-only --format='' | sort | uniq -c | sort -nr | head -20" # where issues cluster
+  ; doppler = "!git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c" # acclerating or dying
+  ; scramble = "!git log --oneline --since='1 year ago' | grep -iE 'revert|hotfix|emergency|rollback'" # firefighting
 
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset
@@ -82,3 +92,5 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[init]
+	defaultBranch = main

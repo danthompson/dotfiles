@@ -1,272 +1,143 @@
+scriptencoding utf-8
+
 set nocompatible
 
-" project-specific vimrc but disable shell and write ops
+filetype plugin indent on
+
+syntax on
+
 set exrc
 set secure
-
-set shell=/bin/bash
 set rtp+=/usr/local/opt/fzf
 
 call plug#begin('~/.vim/plugged')
-Plug 'hashivim/vim-terraform'
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript'
-Plug 'tpope/vim-classpath'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fireplace'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
-Plug 'vim-scripts/VimClojure'
-Plug 'janko-m/vim-test'
-Plug 'tpope/vim-abolish'
-Plug 'rust-lang/rust.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'dense-analysis/ale'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'slim-template/vim-slim'
-Plug 'habamax/vim-colors-defminus'
-Plug 'noahfrederick/vim-hemisu'
-Plug 'ajmwagar/vim-deus'
-Plug 'tomasiser/vim-code-dark'
-Plug 'aunsira/macvim-light'
-Plug 'taniarascia/new-moon.vim'
-Plug 'noahfrederick/vim-noctu'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'liuchengxu/space-vim-theme'
-Plug 'yasukotelin/shirotelin'
-Plug 'peitalin/vim-jsx-typescript'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'OmniSharp/omnisharp-vim'
+  Plug 'dense-analysis/ale'
+  Plug 'hashivim/vim-terraform'
+  Plug 'janko-m/vim-test'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'mxw/vim-jsx'
+  Plug 'pangloss/vim-javascript'
+  Plug 'peitalin/vim-jsx-typescript'
+  Plug 'rust-lang/rust.vim'
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rails'
+  Plug 'vim-ruby/vim-ruby'
+  Plug 'morhetz/gruvbox'
+  Plug 'bakudankun/pico-8.vim'
+  Plug 'github/copilot.vim'
+  Plug 'tpope/vim-fireplace'
+  Plug 'tpope/vim-salve'
+  Plug 'camgunz/amber'
+  Plug 'alligator/accent.vim'
+  Plug 'habamax/vim-godot'
+  Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+  Plug 'KeitaNakamura/neodark.vim'
 call plug#end()
 
-set encoding=utf-8              " utf-8
-set hidden                      " backgrounding buffers, remember marks/undos
-set clipboard=unnamed           " link vim and system clipboard
-set visualbell                  " no beeps
-set t_vb=                       " really no beeps
-set scrolloff=3                 " keep lines visiable when at buffers edge
-set splitbelow                  " open splits below
-set splitright                  " and vsplits to the right
+let g:accent_darken = 1
+
+set encoding=utf-8
+set hidden
+set clipboard=unnamed
+set visualbell
+set t_vb=
+set scrolloff=3
+set splitbelow
+set splitright
 set statusline=\ %<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 set title
 set titleold=""
 set titlestring=%F
-
-set history=1000                " sizable memory
-set backup                      " enable backups
-set backupdir=~/.vim/backup     " back it up somewhere
-set directory=~/.vim/backup     " ditto
-set undodir=~/.vim/backup       " ditto
+set history=1000
+set nobackup
+set nowritebackup
+set noswapfile
+set directory=/tmp
+set undodir=/tmp
 set undofile
 set undolevels=1000
 set undoreload=10000
-
-set nowrap                      " no wrap for text
-set textwidth=78                " wrap long lines at 80 chars
-set colorcolumn=81              " highlight column
-set ruler                       " show cursor position
-set number                      " line numbers
-set numberwidth=5               " line numbers column width
-set laststatus=2                " always show status line
-set cmdheight=1                 " command line height
-set showcmd                     " display incomplete commands
-set wildmode=longest,list       " tab completion similar to shell
-set wildignore+=**/dist,**/bower_components,**/node_modules,tmp,docker_data,build
-
-" highlight ColorColumn ctermbg=242
-
-set suffixesadd=.rb
-set path+=lib/**,test/**,app/**,spec/**
-let g:ruby_path = &path
-
-set autoindent                  " like a robot
-set expandtab                   " use spaces in place of tabs
-set tabstop=2                   " space(s) when tabbing
-set shiftwidth=2                " space(s) for indentation
-set softtabstop=2               " space(s) when tabbing always
-set smarttab                    " backspacing deletes space-expanded tabs
-set nojoinspaces                " do not use spaces when doing a line join
-set backspace=indent,eol,start  " allow backspacing over everything
-set list                        " display unprintable characters
-set listchars=tab:\|\ ,trail:·,extends:>,precedes:<,nbsp:·
-
-set foldmethod=manual           " turn off folds
-set nofoldenable                " dito
-
-set showmatch                   " show matching brackets, and parans
-set hlsearch                    " highlight search results
-set incsearch                   " highlight matches while searching
-set ignorecase                  " ignore case when searching
-set smartcase                   " override ignorecase if query has uppercase
-
 set relativenumber
+set nowrap
+set showbreak=↪
+set textwidth=78
+set colorcolumn=81
+set ruler
+set number
+set numberwidth=5
+set laststatus=2
+set cmdheight=1
+set showcmd
+set wildmode=longest,list
+set wildignore+=**/dist,**/bower_components,**/node_modules,tmp,docker_data,build
+set autoindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set smarttab
+set nojoinspaces
+set backspace=indent,eol,start
+set list
+set listchars=tab:\|\ ,trail:·,extends:>,precedes:<,nbsp:·
+set foldmethod=manual
+set nofoldenable
+set showmatch
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set grepprg=rg\ --vimgrep
 
-" set t_Co=256
-syntax on
-" colorscheme default
+let mapleader=","
 
-" highlight CursorLineNr ctermbg=11 ctermfg=03
-" highlight NonText ctermbg=NONE ctermfg=10
-" highlight SpecialKey ctermbg=00 ctermfg=10
-" highlight ExtraWhitespace ctermbg=01 ctermfg=00
+command! W :w
+command! Q :q
+command! Ccl :ccl
+command! Bd :bd
 
-" set background=light
-" highlight ColorColumn ctermbg=255
-" " set background=dark
-" " highlight ColorColumn ctermbg=233
-
-" match ExtraWhitespace /\s\+$/
-" autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-" autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-" autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-" autocmd BufWinLeave * call clearmatches()
-
-let mapleader=","  " fearless leader
-
-command! W :w      " alias W as w
-command! Q :q      " alias Q as q
-command! Ccl :ccl  " alias Ccl as ccl
-command! Bd :bd  " alias Bd as bd
-
-" use Q instead of Ex mode
-map Q gq
-
-" less escaping for regex searches
-nnoremap / /\v
-vnoremap / /\v
-
-" clear search highlight
-nnoremap <CR> :nohlsearch<cr>
-
-" disable cursor keys in normal mode
+map <F1> <nop>
+map <F1> <nop>
 map <Left>  <nop>
 map <Right> <nop>
 map <Up>    <nop>
 map <Down>  <nop>
-
-" easier navigation between split windows
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>r :Rg<CR>
+nnoremap <leader><leader> <c-^>
+nnoremap / /\v
+vnoremap / /\v
+nnoremap <CR> :nohlsearch<cr>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-
-" disable help
-nnoremap <F1> <nop>
-inoremap <F1> <nop>
-
-" easier splits
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>w :set invwrap wrap?<CR>
 
-" switch between last two buffers
-nnoremap <leader><leader> <c-^>
 
-" expand parenthesis/bracket/quote
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a"<esc>`<i"<esc>
+nnoremap <leader>e $v%lohc<CR><CR><Up><C-r>"<Esc>:s/,/,\r/g<CR>:'[,']norm ==<CR>
 
-" wrap parenthesis/bracket/quote
-inoremap $1 ()<esc>i
-inoremap $2 []<esc>i
-inoremap $3 {}<esc>i
-inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
-inoremap $t <><esc>i
-
-set grepprg=rg\ --vimgrep
-let g:fzf_layout = { 'down': '~33%' }
-
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <silent> <leader>r :Rg<CR>
-
-" rust
-let g:rustfmt_autosave = 1
-
-" jsx in js
-let g:jsx_ext_required = 0
-
-" a.l.e.
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
-let g:ale_lint_on_text_change = 'never'
-let g:ale_line_on_enter = 0
-let g:ale_fixers = {
-      \ 'javascript': [ 'prettier_standard' ],
-      \ 'ruby': ['rubocop'],
-      \ 'rust': ['rustfmt'],
-      \ 'lua': ['prettier']
-      \ }
-let g:ale_linters = {
-      \ 'cs': ['OmniSharp'],
-      \ 'javascript': [''],
-      \ 'ruby': ['rubocop'],
-      \ 'rust': ['cargo'],
-      \ 'lua': ['prettier']
-      \ }
-nmap <leader>1 <Plug>(ale_fix)
-nmap <silent> gd :ALEGoToDefinition<CR>
-nmap <silent> gh :ALEHover<CR>
-" highlight ALEWarning ctermbg=DarkMagenta guibg=DarkMagenta
-" highlight ALEWarning ctermbg=none cterm=underline
-" highlight ALEError ctermbg=none cterm=underline
-" highlight clear ALEError
-" highlight clear ALEWarning
-" highlight ALEErrorSign ctermfg=red ctermbg=none guifg=#000000 guibg=#000000
-" highlight ALEWarningSign ctermfg=yellow ctermbg=none guifg=#000000 guibg=#000000
-" highlight ALEError ctermbg=none ctermfg=196
-" highlight ALEWarning ctermbg=none ctermfg=196
-" hi link ALEErrorSign    ALEError
-" hi link ALEWarningSign  ALEWarning
-hi link ALEError ALEErrorSign
-hi link ALEWarning ALEWarningSign
-
-let g:OmniSharp_server_stdio = 0
-
-augroup Vim
-  autocmd!
-
-  " reload vimrc after saving
-  autocmd BufWritePost ~/.vimrc so ~/.vimrc
-
-  " create the directory if it doesn't exist
-  autocmd BufNewFile * silent !mkdir -p $(dirname %)
-
-  " open to last known cursor position
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  " Rakefile and Gemfile are Ruby
-  autocmd BufRead,BufNewFile {Gemfile,Rakefile,config.ru} set ft=ruby
-
-augroup END
-
-augroup SizeWindow
-  autocmd!
-  autocmd WinEnter * call SizeWindow()
-augroup END
-
-function! SizeWindow()
-  if winwidth(winnr()) < 78
-    exec "vertical resize 78"
-  end
-endfunction
+colorscheme default
+" set termguicolors
+" let g:gruvbox_contrast_dark='medium'
+" let g:gruvbox_contrast_light='hard'
+" colorscheme gruvbox
+" set background=dark
+" hi LspCxxHlGroupMemberVariable guifg=#83a598
 
 " tab autocompletion or indentation depending on context
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
-
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
@@ -275,43 +146,10 @@ function! InsertTabWrapper()
         return "\<c-p>"
     endif
 endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
 
-nmap <silent> <leader>T :TestNearest<CR>
-nmap <silent> <leader>t :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
-
-" test using dispatch.vim
-let test#strategy = "dispatch"
-let test#javascript#mocha#options = '-R spec --compilers js:babel-core/register'
-
-" promote declaration to rspec let
-command! PromoteToLet :call PromoteToLet()
-map <leader>ll :PromoteToLet<cr>
-
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
-endfunction
-
-" strip trailing whitespace (,ss)
-noremap <leader>ss :call StripWhitespace()<CR>
-
-function! StripWhitespace()
-  let save_cursor = getpos(".")
-  let old_query = getreg('/')
-  :%s/\s\+$//e
-  call setpos('.', save_cursor)
-  call setreg('/', old_query)
-endfunction
-
-" rename current file
-map <leader>sa :call RenameFile()<cr>
-
+" rename file
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'))
@@ -321,3 +159,210 @@ function! RenameFile()
         redraw!
     endif
 endfunction
+map <leader>sa :call RenameFile()<cr>
+
+" strip trailing whitespace
+function! StripWhitespace()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+
+" vim-test
+let test#strategy = "dispatch"
+let test#javascript#mocha#options = '-R spec --compilers js:babel-core/register'
+nmap <silent> <leader>T :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+
+" ale
+let g:ale_enabled = 1
+let g:ale_linters_explicit = 1
+let g:ale_completion_enabled = 1
+let g:ale_virtualtext_cursor = 'disabled'
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'cs': ['dotnet-format'],
+      \ 'javascript': [ 'prettier_standard' ],
+      \ 'python': ['ruff_format'],
+      \ 'ruby': ['rubocop', 'standardrb'],
+      \ 'rust': ['rustfmt'],
+      \ 'lua': ['prettier'],
+      \ 'terraform': ['terraform'],
+      \ 'sql': ['sqlfluff'],
+      \ }
+      " \ 'python': ['black'],
+let g:ale_line_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_change = 'normal'
+let g:ale_linters = {
+      \ 'cs': ['OmniSharp'],
+      \ 'javascript': [''],
+      \ 'python': ['ruff'],
+      \ 'ruby': ['rubocop', 'standardrb'],
+      \ 'rust': ['cargo'],
+      \ 'lua': ['prettier'],
+      \ 'terraform': ['terraform', 'tflint'],
+      \ 'sql': ['sqlfluff'],
+      \ }
+      " \ 'python': ['flake8', 'isort'],
+let g:ale_sign_column_always = 1
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+highlight clear SignColumn
+
+
+" ALESignColumnWithoutErrors
+" highlight SignColumn ctermbg=black guibg=black
+
+nmap <leader>1 <Plug>(ale_fix)
+nmap <silent> gd :ALEGoToDefinition<CR>
+nmap <silent> gh :ALEHover<CR>
+
+nnoremap <leader>jq :%!jq .<CR>
+
+let g:ale_python_flake8_options = "--ignore=E501,E226,E741"
+
+let g:ale_set_highlights = 0
+
+" fugitive
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gr :Gread<cr>
+
+" fzf
+let $BAT_THEME = 'ansi'
+let g:fzf_layout = { 'down': '~33%' }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'query':   ['fg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" omnisharp
+autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+autocmd FileType cs nmap <silent> <buffer> gi <Plug>(omnisharp_find_implementations)
+autocmd FileType cs nmap <silent> <buffer> <F2> <Plug>(omnisharp_rename)
+
+autocmd FileType cs nmap <silent> <buffer> ca <Plug>(omnisharp_code_actions)
+autocmd FileType cs xmap <silent> <buffer> ca <Plug>(omnisharp_code_actions)
+autocmd FileType cs nmap <silent> <buffer> fu <Plug>(omnisharp_find_usages)
+autocmd FileType cs nmap <silent> <buffer> fi <Plug>(omnisharp_find_implementations)
+autocmd FileType cs nmap <silent> <buffer> pd <Plug>(omnisharp_preview_definition)
+autocmd FileType cs nmap <silent> <buffer> pi <Plug>(omnisharp_preview_implementations)
+autocmd FileType cs nmap <silent> <buffer> tl <Plug>(omnisharp_type_lookup)
+autocmd FileType cs nmap <silent> <buffer> dc <Plug>(omnisharp_documentation)
+autocmd FileType cs nmap <silent> <buffer> fs <Plug>(omnisharp_find_symbol)
+autocmd FileType cs nmap <silent> <buffer> cx <Plug>(omnisharp_fix_usings)
+autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+
+" autocmd BufWritePre *.cs :OmniSharpCodeFormat | noautocmd write
+" autocmd BufWrite *.cs :OmniSharpCodeFormat
+" autocmd BufWritePost <buffer> :OmniSharpCodeFormat
+" autocmd FileType cs autocmd BufWritePre <buffer> :OmniSharpCodeFormat | noautocmd write
+" autocmd BufWrite *.cs call OmniSharpCodeFormat()
+" autocmd BufWritePre *.cs <Plug>(omnisharp_code_format)
+
+let g:OmniSharp_server_use_net6 = 0
+let g:omnisharp_fzf_options = { 'window': 'botright 7new' }
+let g:omnisharp_highlighting = 2
+let g:omnisharp_loglevel = 'none'
+let g:omnisharp_open_quickfix = 1
+let g:omnisharp_popup = 1
+let g:omnisharp_popup_mappings = {
+      \ 'close': ['<Esc>', 'q'],
+      \ 'halfPageDown': ['<C-d>', 'd'],
+      \ 'halfPageUp': ['<C-u>', 'u']
+      \}
+let g:omnisharp_popup_options = {
+      \ 'highlight': 'Normal',
+      \ 'border': [1],
+      \ 'borderchars': [' '],
+      \ 'borderhighlight': ['Visual']
+      \}
+let g:omnisharp_popup_position = 'center'
+let g:omnisharp_selector_findusages = 'fzf'
+let g:omnisharp_selector_ui = 'fzf'
+let g:omnisharp_server_stdio = 1
+let g:omnisharp_server_type = 'roslyn'
+let g:omnisharp_timeout = 5
+let g:omnisharp_want_snippet=1
+nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+
+" copilot
+imap <silent> <C-j> <Plug>(copilot-next)
+imap <silent> <C-k> <Plug>(copilot-previous)
+imap <silent> <C-\> <Plug>(copilot-dismiss)
+
+" markdown-preview
+nmap <leader>md :MarkdownPreview<CR>
+nmap <leader>mD :MarkdownPreviewStop<CR>
+nmap <leader>mt :MarkdownPreviewToggle<CR>
+
+" terraform
+let g:terraform_fmt_on_save = 1
+
+" godot
+call ale#linter#Define('gdscript', {
+\   'name': 'godot',
+\   'lsp': 'socket',
+\   'address': '127.0.0.1:6008',
+\   'project_root': 'project.godot',
+\})
+func! GodotSettings() abort
+    nmap <silent> <leader>t :GodotRunCurrent<CR>
+    nmap <silent> <leader>a :GodotRun<CR>
+    nmap <silent> <leader>l :GodotRunLast<CR>
+    nmap <silent> <leader>g :GodotRunFZF<CR>
+endfunc
+augroup godot | au!
+    au FileType gdscript call GodotSettings()
+augroup end
+
+command! PromoteToRSpecLet :call PromoteToRSpecLet()
+map <leader>pl :PromoteToRSpecLet<CR>
+
+function! PromoteToRSpecLet()
+  :normal! dd
+  :normal! P
+  :.s/\(\w\+\) = \(.*\)/let(:\1) { \2 }/
+  :normal! ==
+endfunction
+
+augroup Vim
+  autocmd!
+  " reload vimrc after saving
+  autocmd BufWritePost ~/.vimrc so ~/.vimrc
+  " autocmd FocusGained * silent :redraw!
+  " create the directory if it doesn't exist
+  autocmd BufNewFile * silent !mkdir -p $(dirname %)
+  " open to last known cursor position
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+  " size windows on enter
+  autocmd WinEnter *
+    \ if winwidth(winnr()) < 100 |
+    \   exec "vertical resize 100" |
+    \ end
+augroup END

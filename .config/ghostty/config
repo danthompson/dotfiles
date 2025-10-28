@@ -1,0 +1,40 @@
+# terminal
+term = xterm-256color
+
+# font
+font-family = "SF Mono"
+font-family-bold = "SF Mono Semibold"
+font-size = 16
+
+# window
+title = "Terminal"
+# theme = dark:"GitHub Dark Colorblind", light:"GitHub Light Colorblind"
+# theme = dark:"Terafox", light:"DayFox"
+# theme = "naysayer"
+
+window-padding-x = 5
+
+window-padding-y = 5,0
+window-padding-balance = true
+window-padding-color = extend
+adjust-cell-height = 10%
+macos-titlebar-style = native
+cursor-invert-fg-bg = true
+
+# cursor
+cursor-style-blink = true
+
+# text rendering
+bold-color = bright
+
+# mouse
+mouse-hide-while-typing = true
+
+# clipboard
+clipboard-read = allow
+copy-on-select = false
+
+# keybinds
+keybind = super+t=unbind
+keybind = super+w=unbind
+keybind = super+n=unbind

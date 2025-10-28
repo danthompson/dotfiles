@@ -1,0 +1,121 @@
+# taps
+# tap "apple/apple"
+# tap "aws/tap"
+# tap "hashicorp/tap"
+# tap "heroku/brew"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "homebrew/services"
+
+# tools
+brew "git"
+brew "neovim"
+brew "tmux"
+
+# # package + environment management
+# brew "hashicorp/tap/terraform"
+# brew "nodenv"
+# brew "node-build"
+# brew "pyenv"
+# brew "rbenv"
+# brew "ruby-build"
+# brew "rust"
+# brew "uv"
+
+# cloud + platform
+brew "awscli"
+brew "gh"
+# brew "heroku/brew/heroku"
+
+# # databases + services
+# brew "postgresql@18", restart_service: :changed, link: true
+# brew "redis", restart_service: :changed
+
+# terminal + utilities
+brew "fzf"
+brew "jq"
+brew "reattach-to-user-namespace"
+brew "ripgrep"
+# brew "tree"
+# brew "xq"
+# brew "yq"
+
+# applications
+cask "1password"
+cask "1password-cli"
+cask "alacritty"
+cask "font-sf-mono"
+cask "slack"
+cask "visual-studio-code"
+
+# vscode extensions
+vscode "editorconfig.editorconfig"
+# vscode "github.github-vscode-theme"
+# vscode "ms-ossdata.vscode-pgsql"
+# vscode "ms-python.debugpy"
+# vscode "ms-python.python"
+# vscode "ms-python.vscode-pylance"
+# vscode "ms-python.vscode-python-envs"
+# vscode "mtxr.sqltools"
+# vscode "mtxr.sqltools-driver-pg"
+# vscode "vscodevim.vim"
+
+# --- 
+#
+#
+# # tools
+# brew "git"
+# brew "git-lfs"
+# brew "neovim"
+# brew "tmux"
+# brew "tailscale"
+#
+# # package + environment management
+# brew "hashicorp/tap/terraform"
+# brew "nodenv"
+# brew "node-build"
+# # brew "pyenv"
+# brew "rbenv"
+# brew "ruby-build"
+# # brew "rust"
+# brew "uv"
+# brew "go"
+#
+#
+# # cloud + platform
+# brew "awscli"
+# brew "gh"
+# brew "heroku/brew/heroku"
+#
+# # # databases + services
+# # brew "postgresql@18", restart_service: :changed, link: true
+# # brew "redis", restart_service: :changed
+# # brew "sqlite"
+#
+# # terminal + utilities
+# brew "fzf"
+# brew "jq"
+# brew "reattach-to-user-namespace"
+# brew "ripgrep"
+# brew "tree"
+#
+# # vscode extensions
+# vscode "editorconfig.editorconfig"
+#
+# # applications
+# cask "1password"
+# cask "1password-cli"
+# cask "alacritty"
+# cask "bruno"
+# cask "claude-code"
+# cask "font-inconsolata"
+# cask "font-sf-mono"
+# cask "ghostty"
+# cask "logi-options+"
+# cask "slack"
+# cask "tableplus"
+# cask "tailscale-app"
+# cask "visual-studio-code"
+# cask "zoom"
+# tap "terraform"

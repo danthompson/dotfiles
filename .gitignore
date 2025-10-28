@@ -12,3 +12,8 @@
 Procfile.dev
 sbin/*
 .vimrc
+/AGENTS.md
+/CLAUDE.md
+/CLAUDE.local.md
+/.claude/*
+.gitignore.local
