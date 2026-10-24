@@ -96,7 +96,7 @@ export MANPAGER='less -X'
 export PAGER='less'
 export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow --glob "!{.keep,.bundle,.git,.yarn,node_modules,temp,vendor/bundle}/*" --glob "!{*.meta,*.asset}"'
 export FZF_DEFAULT_OPTS='--no-height --ansi'
-
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 
 eval "$(nodenv init -)"

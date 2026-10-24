@@ -65,7 +65,7 @@
   st = stash
   sub = submodule
   s = status -sb
-  bp = !git branch --merged master | grep -v master | xargs git branch -d && git remote prune origin
+  bp = !git branch --merged main | grep -v main | xargs git branch -d
 
   ; experimental
   ; stgr = "!f() { for i in `git stash list --format=\"%gd\"` ; do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"

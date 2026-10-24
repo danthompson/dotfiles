@@ -1,0 +1,15 @@
+#:tombi schema.strict = false
+
+block_newline_gaps = "Preserve"  # [Never, Preserve]
+call_parentheses = "Always"  # [Always, NoSingleString, NoSingleTable, None, Input]
+collapse_simple_statement = "Never"  # [Never, FunctionOnly, ConditionalOnly, Always]
+column_width = 120
+indent_type = "Spaces"  # [Tabs, Spaces]
+indent_width = 2
+line_endings = "Unix"  # [Unix, Windows]
+quote_style = "AutoPreferDouble"  # [AutoPreferDouble, AutoPreferSingle, ForceDouble, ForceSingle]
+space_after_function_names = "Never"  # [Never, Definitions, Calls, Always]
+syntax = "All"  # [All, Lua51, Lua52, Lua53, Lua54, Luau, LuaJit, CfxLua]
+
+[sort_requires]
+enabled = true

@@ -8,9 +8,23 @@ font-size = 16
 
 # window
 title = "Terminal"
+
+# theme = "GitHub Dark Colorblind"
+# theme = "GitHub Dark Colorblind"
 # theme = dark:"GitHub Dark Colorblind", light:"GitHub Light Colorblind"
+
+# theme = "nvim dark"
+# theme = "nvim light"
+# theme = dark:"nvim dark", light:"nvim light"
+
+theme = "carbonfox"
+# theme = "dawnfox"
+# theme = "dayfox"
+# theme = "duskfox"
+# theme = "nightfox"
+# theme = "nordfox"
+# theme = "terafox"
 # theme = dark:"Terafox", light:"DayFox"
-# theme = "naysayer"
 
 window-padding-x = 5
 
