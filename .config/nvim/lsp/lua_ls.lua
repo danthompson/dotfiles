@@ -44,6 +44,7 @@ return {
       diagnostics = {
         globals = {
           "vim",
+          "rex",
         },
       },
     },

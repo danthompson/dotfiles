@@ -15,4 +15,5 @@ link_file .zprofile
 link_file .zshrc
 link_file .config/ghostty/config
 link_file .config/nvim
+link_file .config/rex
 link_file .ripgreprc
