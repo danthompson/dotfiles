@@ -2,9 +2,9 @@ vim.pack.add({
   { src = "https://github.com/EdenEast/nightfox.nvim" },
 })
 
-local colorschem = require("nightfox")
+local colorscheme = require("nightfox")
 
-colorschem.setup({
+colorscheme.setup({
   colorblind = {
     enable = true,
   },
@@ -18,4 +18,4 @@ colorschem.setup({
 -- nordfox
 -- terafox
 
-vim.cmd("colorscheme carbonfox")
+vim.cmd("colorscheme dayfox")

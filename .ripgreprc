@@ -1,0 +1,49 @@
+--column
+--follow
+--hidden
+--heading
+--max-columns-preview
+--max-columns=100
+--smart-case
+--line-number
+
+--glob=!.git/*
+--glob=!.pytest_cache
+--glob=!.ruff_cache
+--glob=!.ssh/
+--glob=!.venv
+--glob=!__pycache__
+--glob=!node_modules
+# --glob=.cache/*
+
+# rg
+# --files
+# --ignore
+# --hidden
+# --follow
+# --glob "!{.keep,.bundle,.git,.yarn,node_modules,temp,vendor/bundle}/*"
+# --glob "!{*.meta,*.asset}"
+
+# ripgrep 15.1.0
+#
+# --after-context=NUM # Show NUM lines after each match.
+# --before-context=NUM # Show NUM lines before each match.
+# --column # Show column numbers (1-based).
+# --context=NUM # Show NUM lines before and after each match.
+# --crlf # When enabled, ripgrep will treat CRLF (\r\n) as a line terminator instead of just \n.
+# --follow # This flag instructs ripgrep to follow symbolic links while traversing directories.
+# --heading # This flag prints the file path above clusters of matches from each file instead of printing the file path as a prefix for each matched line.
+# --hidden # Search hidden files and directories.
+# --line-buffered # When enabled, ripgrep will always use line buffering.
+# --line-number # Show line numbers (1-based).
+# --max-columns-preview # Prints a preview for lines exceeding the configured max column limit.
+# --max-columns=NUM # When given, ripgrep will omit lines longer than this limit in bytes.
+# --max-count=NUM # Limit the number of matching lines per file searched to NUM.
+# --max-depth=NUM # This flag limits the depth of directory traversal to NUM levels beyond the paths given.
+# --maxdepth
+# --no-ignore # When set, ignore files such as .gitignore, .ignore and .rgignore will not be respected.
+# --smart-case # This flag instructs ripgrep to searches case insensitively
+# --stats # When enabled, ripgrep will print aggregate statistics about the search.
+# --trim # When set, all ASCII whitespace at the beginning of each line printed will be removed.
+# --vimgrep # This flag instructs ripgrep to print results with every match on its own line, including line numbers and column numbers.
+# --with-filename # This flag instructs ripgrep to print the file path for each matching line.
